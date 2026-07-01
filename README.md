@@ -20,31 +20,22 @@ Utilizaremos a linguagem Python (com as bibliotecas `requests` e `json`) para bu
 
 # 2ª FASE
 ## Descrição do conjunto de dados
-Este conjunto de dados reúne informações extraídas da literatura científica sobre os efeitos de substâncias com potencial anticonvulsivante e neuroprotetor avaliadas no modelo experimental de crises induzidas por pentilenotetrazol (PTZ) em camundongos.
-
-Os dados estruturados incluem medidas temporais associadas ao aparecimento das crises e à morte dos animais, bem como uma variável categórica que indica a presença ou ausência de efeito protetor.
+Este conjunto de dados reúne informações experimentais extraídas de artigos científicos publicados no PubMed Central (PMC) sobre compostos avaliados no modelo agudo de crises induzidas por pentilenotetrazol (PTZ) em camundongos. O objetivo é estruturar um banco de dados contendo parâmetros farmacológicos relevantes para estudos de compostos com potencial anticonvulsivante e neuroprotetor.
 
 ## Processo de coleta dos dados
-A coleta dos dados foi realizada por meio de técnicas de Web Scraping implementadas em Python, em ambiente Jupyter Notebook. Inicialmente, foi utilizada a API Entrez do National Center for Biotechnology Information (NCBI) para recuperar artigos científicos do repositório PubMed Central (PMC), que disponibiliza o texto completo dos artigos em formato XML.
-
-A busca foi limitada a estudos experimentais envolvendo crises induzidas por pentilenotetrazol em camundongos e compostos com potencial anticonvulsivante ou neuroprotetor. Os arquivos XML obtidos foram processados utilizando a biblioteca BeautifulSoup com o interpretador nativo `html.parser`, permitindo a extração do conteúdo textual dos artigos.
-
-As informações quantitativas foram identificadas por meio de Expressões Regulares (Regular Expressions), capazes de reconhecer padrões matemáticos relacionados às latências convulsivas e aos tempos até a morte. Para aumentar a qualidade dos dados, foi implementada uma estratégia baseada em lista negra (blacklist), excluindo automaticamente valores provenientes de grupos controle ou de fármacos padrão, como diazepam, fenitoína e valproato.
-
-Em conformidade com o conceito de Sweat Equity, apresentado por Steven Skiena em The Data Science Design Manual, optou-se por uma abordagem híbrida entre automação e curadoria humana. O processo automatizado é responsável pela extração das variáveis quantitativas, enquanto a identificação e classificação das substâncias testadas serão realizadas manualmente em etapa posterior, garantindo maior confiabilidade e qualidade ao conjunto de dados.
+Os dados foram coletados por meio da API Entrez (NCBI), utilizando consultas ao banco PubMed Central (PMC) para obtenção dos artigos em formato XML. A extração foi realizada em Python com as bibliotecas requests, BeautifulSoup, re e pandas. Foram utilizadas expressões regulares e regras de validação para identificar os parâmetros experimentais de interesse. Quando necessário, será aplicada curadoria manual, conforme o conceito de Sweat Equity descrito por Steven Skiena.
 
 ## Dicionário de Dados
-| Nome da coluna                        | Descrição                                                                                                      | Exemplo     |
-| ------------------------------------- | -------------------------------------------------------------------------------------------------------------- | ----------- |
-| **pmcid_referencia**                  | Identificador do artigo científico na base PubMed Central (PMC).                                               | PMC6269576  |
-| **substancia_testada**                | Nome da substância avaliada experimentalmente. Inicialmente mantida vazia para posterior preenchimento manual. | Naringenina |
-| **media_latencia_primeira_crise**     | Média do tempo até o aparecimento da primeira crise convulsiva, em segundos.                                   | 76,0        |
-| **desvio_erro_padrao_primeira_crise** | Desvio padrão ou erro padrão associado à latência da primeira crise, em segundos.                              | 2,5         |
-| **media_latencia_morte**              | Média do tempo até a morte dos animais, em segundos.                                                           | 1800,0      |
-| **desvio_erro_padrao_morte**          | Desvio padrão ou erro padrão associado ao tempo até a morte, em segundos.                                      | 0,0         |
-| **protecao_target**                   | Indica se a substância apresentou efeito anticonvulsivante/neuroprotetor.                                      | Sim         |
+| Nome da coluna                        | Descrição                                                                                      | Exemplo    |
+| ------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------- |
+| **pmcid_referencia**                  | Identificador do artigo no PubMed Central.                                                     | PMC4142302 |
+| **substancia_testada**                | Nome do composto experimental avaliado.                                                        | α-Pinene   |
+| **dose_mg_kg**                        | Dose administrada ao grupo experimental (mg/kg).                                               | 200        |
+| **media_latencia_primeira_crise**     | Média da latência para a primeira crise (segundos).                                            | 82.5       |
+| **desvio_erro_padrao_primeira_crise** | Desvio padrão ou erro padrão da média da primeira crise (segundos).                            | 4.1        |
+| **media_latencia_morte**              | Média da latência para a morte (segundos).                                                     | 1800       |
+| **desvio_erro_padrao_morte**          | Desvio padrão ou erro padrão da média da latência para a morte (segundos).                     | 0.0        |
+| **protecao_target**                   | Indica se o composto apresentou efeito anticonvulsivante/neuroprotetor no modelo experimental. | Sim        |
 
 ## Disponibilidade dos dados
-O arquivo .xlsx contendo os dados coletados encontra-se disponível no seguinte link: https://docs.google.com/spreadsheets/d/1B-RZQIMEeKE7j7OJTgCbtLA0r48hItP7/edit?usp=drive_link&ouid=104361187681590337862&rtpof=true&sd=true
-
-OBS: O arquivo disponibilizado corresponde à versão consolidada do banco de dados após a etapa de extração automatizada. A coluna referente à substância testada será posteriormente complementada por meio de curadoria manual especializada.
+O arquivo .xlsx contendo os dados coletados encontra-se disponível no seguinte link: 
