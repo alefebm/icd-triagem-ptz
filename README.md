@@ -20,9 +20,9 @@ Utilizaremos a linguagem Python (com as bibliotecas `requests` e `json`) para bu
 
 # 2ª FASE
 ## Descrição do conjunto de dados
-Este conjunto de dados reúne informações extraídas da literatura científica sobre os efeitos de substâncias com potencial anticonvulsivante e neuroprotetor avaliadas no modelo experimental de crises induzidas por pentilenotetrazol (PTZ) em camundongos. Os dados serão utilizados como base para futuras análises estatísticas e desenvolvimento de modelos preditivos aplicados à descoberta de fármacos.
+Este conjunto de dados reúne informações extraídas da literatura científica sobre os efeitos de substâncias com potencial anticonvulsivante e neuroprotetor avaliadas no modelo experimental de crises induzidas por pentilenotetrazol (PTZ) em camundongos.
 
-Cada observação representa informações extraídas da literatura científica relacionadas ao efeito de substâncias experimentais sobre parâmetros de proteção contra crises convulsivas e mortalidade. Os dados estruturados incluem medidas temporais associadas ao aparecimento das crises e à morte dos animais, bem como uma variável categórica que indica a presença ou ausência de efeito protetor.
+Os dados estruturados incluem medidas temporais associadas ao aparecimento das crises e à morte dos animais, bem como uma variável categórica que indica a presença ou ausência de efeito protetor.
 
 ## Processo de coleta dos dados
 A coleta dos dados foi realizada por meio de técnicas de Web Scraping implementadas em Python, em ambiente Jupyter Notebook. Inicialmente, foi utilizada a API Entrez do National Center for Biotechnology Information (NCBI) para recuperar artigos científicos do repositório PubMed Central (PMC), que disponibiliza o texto completo dos artigos em formato XML.
