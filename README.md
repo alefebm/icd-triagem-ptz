@@ -23,19 +23,18 @@ Utilizaremos a linguagem Python (com as bibliotecas `requests` e `json`) para bu
 Este conjunto de dados reúne informações experimentais extraídas de artigos científicos publicados no PubMed Central (PMC) sobre compostos avaliados no modelo agudo de crises induzidas por pentilenotetrazol (PTZ) em camundongos. O objetivo é estruturar um banco de dados contendo parâmetros farmacológicos relevantes para estudos de compostos com potencial anticonvulsivante e neuroprotetor.
 
 ## Processo de coleta dos dados
-Os dados foram coletados por meio da API Entrez (NCBI), utilizando consultas ao banco PubMed Central (PMC) para obtenção dos artigos em formato XML. A extração foi realizada em Python com as bibliotecas requests, BeautifulSoup, re e pandas. Foram utilizadas expressões regulares e regras de validação para identificar os parâmetros experimentais de interesse. Quando necessário, será aplicada curadoria manual, conforme o conceito de Sweat Equity descrito por Steven Skiena.
+Os dados foram coletados por meio da API Entrez (NCBI), utilizando consultas ao banco PubMed Central (PMC) para obtenção dos artigos em formato XML. A extração foi realizada em Python com as bibliotecas `requests`, `BeautifulSoup`, `re` (Expressões Regulares) e `pandas`. Foram utilizadas expressões regulares e regras de validação para identificar os parâmetros experimentais de interesse. Quando necessário, será aplicada curadoria manual, conforme o conceito de *Sweat Equity* descrito por Steven Skiena.
 
-## Dicionário de Dados
-| Nome da coluna                        | Descrição                                                                                      | Exemplo    |
-| ------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------- |
-| **pmcid_referencia**                  | Identificador do artigo no PubMed Central.                                                     | PMC4142302 |
-| **substancia_testada**                | Nome do composto experimental avaliado.                                                        | α-Pinene   |
-| **dose_mg_kg**                        | Dose administrada ao grupo experimental (mg/kg).                                               | 200        |
-| **media_latencia_primeira_crise**     | Média da latência para a primeira crise (segundos).                                            | 82.5       |
-| **desvio_erro_padrao_primeira_crise** | Desvio padrão ou erro padrão da média da primeira crise (segundos).                            | 4.1        |
-| **media_latencia_morte**              | Média da latência para a morte (segundos).                                                     | 1800       |
-| **desvio_erro_padrao_morte**          | Desvio padrão ou erro padrão da média da latência para a morte (segundos).                     | 0.0        |
-| **protecao_target**                   | Indica se o composto apresentou efeito anticonvulsivante/neuroprotetor no modelo experimental. | Sim        |
+| Nome da coluna | Descrição | Exemplo |
+| :--- | :--- | :--- |
+| **PMCID** | Identificador único do artigo no PubMed Central. | `PMC12956243` |
+| **Titulo** | Título do artigo científico de origem. | `Anticonvulsant activity of compound X...` |
+| **Target_Efeito_Protetor** | Variável Alvo (Classificação Híbrida Semântico-Numérica). Indica se o composto em teste demonstrou efeito anticonvulsivante/neuroprotetor significativo ("Sim" ou "Não"). | `Sim` |
+| **Doses_Testadas_mg_kg** | Lista contendo as doses administradas do composto experimental (mg/kg). | `[50, 100, 200]` |
+| **Latencias_Crises_M_SD_s** | Lista de tuplas no formato `(Média, Dispersão)` representando a latência para a primeira crise e seu respectivo Desvio Padrão (SD) ou Erro Padrão (SEM) em segundos. | `[(117.8, 12.12), (163.5, 35.2)]` |
+| **Latencias_Morte_M_SD_s** | Lista de tuplas no formato `(Média, Dispersão)` representando a latência para o desfecho de óbito e seu respectivo SD/SEM em segundos. | `[(1411.0, 461.7), (1800.0, 0.0)]` |
+| **Score_Racine_Teste** | Lista de scores máximos da Escala de Racine (0 a 6) atingidos **apenas** pelo grupo tratado com o composto experimental. | `[3, 4]` |
+| **Trecho_Conclusao** | Fragmento de texto extraído das seções de Conclusão, Discussão ou Abstract utilizado pelo algoritmo de NLP para validação de contexto. | `The results suggest that compound X significantly increased the latency...` |
 
 ## Disponibilidade dos dados
-O arquivo .xlsx contendo os dados coletados encontra-se disponível no seguinte link: 
+O conjunto de dados estruturado está consolidado e disponível em dois formatos `.csv` e `.xlsx`. Os arquivos encontram-se disponíveis no seguinte link: https://drive.google.com/drive/folders/1z-ccp0WHS1WI2nzWEUvTUkL50rD7MMe4?usp=drive_link
