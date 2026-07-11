@@ -20,11 +20,11 @@ Utilizaremos a linguagem Python (com as bibliotecas `requests` e `json`) para bu
 
 # 2ª FASE
 ## Descrição do conjunto de dados
-Este conjunto de dados foi desenvolvido para servir como uma **baseline para modelos de Machine Learning voltados à predição de potencial anticonvulsivante de novos compostos bioativos**. O dataset contém informações extraídas de estudos científicos que avaliaram substâncias naturais, sintéticas ou semissintéticas utilizando o modelo experimental **in vivo de convulsão induzida por Pentilenotetrazol (PTZ) em camundongos**.
+Este conjunto de dados foi desenvolvido para servir como uma **baseline para modelos de predição de potencial anticonvulsivante de novos compostos bioativos**. O dataset contém informações extraídas de estudos científicos que avaliaram substâncias naturais, sintéticas ou semissintéticas utilizando o modelo experimental **de convulsão induzida por Pentilenotetrazol (PTZ) em camundongos**.
 
 Os dados foram obtidos a partir da literatura científica e organizados em uma estrutura padronizada contendo informações sobre compostos testados, doses administradas, vias de administração e respostas farmacológicas observadas.
 
-Devido à elevada heterogeneidade dos relatos experimentais encontrados na literatura (diferentes formas de apresentação de médias, desvios, medianas e critérios estatísticos), os dados quantitativos originais foram transformados em **fenótipos binários de classificação**, permitindo a construção de uma matriz mais adequada para algoritmos de Machine Learning.
+Devido à elevada heterogeneidade dos relatos experimentais encontrados na literatura (diferentes formas de apresentação de médias, desvios, medianas e critérios estatísticos), os dados quantitativos da proposta original foram transformados em **fenótipos binários de classificação**, permitindo a construção de uma matriz mais adequada para algoritmos de Machine Learning.
 
 A classificação utilizada foi:
 
