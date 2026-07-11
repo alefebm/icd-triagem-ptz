@@ -20,21 +20,34 @@ Utilizaremos a linguagem Python (com as bibliotecas `requests` e `json`) para bu
 
 # 2ª FASE
 ## Descrição do conjunto de dados
-Este conjunto de dados reúne informações experimentais extraídas de artigos científicos publicados no PubMed Central (PMC) sobre compostos avaliados no modelo agudo de crises induzidas por pentilenotetrazol (PTZ) em camundongos. O objetivo é estruturar um banco de dados contendo parâmetros farmacológicos relevantes para estudos de compostos com potencial anticonvulsivante e neuroprotetor.
+Este conjunto de dados foi desenvolvido para servir como uma **baseline para modelos de Machine Learning voltados à predição de potencial anticonvulsivante de novos compostos bioativos**. O dataset contém informações extraídas de estudos científicos que avaliaram substâncias naturais, sintéticas ou semissintéticas utilizando o modelo experimental **in vivo de convulsão induzida por Pentilenotetrazol (PTZ) em camundongos**.
+
+Os dados foram obtidos a partir da literatura científica e organizados em uma estrutura padronizada contendo informações sobre compostos testados, doses administradas, vias de administração e respostas farmacológicas observadas.
+
+Devido à elevada heterogeneidade dos relatos experimentais encontrados na literatura (diferentes formas de apresentação de médias, desvios, medianas e critérios estatísticos), os dados quantitativos originais foram transformados em **fenótipos binários de classificação**, permitindo a construção de uma matriz mais adequada para algoritmos de Machine Learning.
+
+A classificação utilizada foi:
+
+- `1` → presença de efeito anticonvulsivante/neuroprotetor estatisticamente validado;
+- `0` → ausência de efeito terapêutico observado.
+
+Dessa forma, o conjunto de dados permite a identificação de padrões associados ao potencial farmacológico de diferentes moléculas e pode ser utilizado como base para modelos preditivos de classificação de candidatos a novos fármacos antiepilépticos.
 
 ## Processo de coleta dos dados
-Os dados foram coletados por meio da API Entrez (NCBI), utilizando consultas ao banco PubMed Central (PMC) para obtenção dos artigos em formato XML. A extração foi realizada em Python com as bibliotecas `requests`, `BeautifulSoup`, `re` (Expressões Regulares) e `pandas`. Foram utilizadas expressões regulares e regras de validação para identificar os parâmetros experimentais de interesse. Quando necessário, será aplicada curadoria manual, conforme o conceito de *Sweat Equity* descrito por Steven Skiena.
+Os dados foram coletados por meio da API Entrez (NCBI), utilizando consultas ao banco PubMed Central (PMC) para obtenção dos artigos em formato XML. Quando o texto completo não estava disponível, foram utilizados os resumos indexados no PubMed. A extração foi realizada em Python com as bibliotecas `requests`, `BeautifulSoup`, `re` (Expressões Regulares) e `pandas`. Foram utilizadas expressões regulares e regras de validação para identificar os parâmetros experimentais de interesse. Quando necessário, foi aplicada curadoria manual, conforme o conceito de *Sweat Equity* descrito por Steven Skiena.
 
+# Dicionário de Dados
 | Nome da coluna | Descrição | Exemplo |
-| :--- | :--- | :--- |
-| **PMCID** | Identificador único do artigo no PubMed Central. | `PMC12956243` |
-| **Titulo** | Título do artigo científico de origem. | `Anticonvulsant activity of compound X...` |
-| **Target_Efeito_Protetor** | Variável Alvo (Classificação Híbrida Semântico-Numérica). Indica se o composto em teste demonstrou efeito anticonvulsivante/neuroprotetor significativo ("Sim" ou "Não"). | `Sim` |
-| **Doses_Testadas_mg_kg** | Lista contendo as doses administradas do composto experimental (mg/kg). | `[50, 100, 200]` |
-| **Latencias_Crises_M_SD_s** | Lista de tuplas no formato `(Média, Dispersão)` representando a latência para a primeira crise e seu respectivo Desvio Padrão (SD) ou Erro Padrão (SEM) em segundos. | `[(117.8, 12.12), (163.5, 35.2)]` |
-| **Latencias_Morte_M_SD_s** | Lista de tuplas no formato `(Média, Dispersão)` representando a latência para o desfecho de óbito e seu respectivo SD/SEM em segundos. | `[(1411.0, 461.7), (1800.0, 0.0)]` |
-| **Score_Racine_Teste** | Lista de scores máximos da Escala de Racine (0 a 6) atingidos **apenas** pelo grupo tratado com o composto experimental. | `[3, 4]` |
-| **Trecho_Conclusao** | Fragmento de texto extraído das seções de Conclusão, Discussão ou Abstract utilizado pelo algoritmo de NLP para validação de contexto. | `The results suggest that compound X significantly increased the latency...` |
+|---|---|---|
+| `pmid_pmc_referencia` | Identificador do artigo científico utilizado como fonte dos dados (PubMed ID ou PubMed Central ID). | `PMC702134` |
+| `substancia_testada` | Nome da substância ou composto avaliado no experimento. | `cinnamic alcohol` |
+| `dose_mg_kg` | Dose administrada da substância no modelo experimental, expressa em mg/kg. | `50.0` |
+| `via_administracao` | Via utilizada para administração do composto no animal. | `i.p.` |
+| `aumento_latencia_crise` | Indica se houve aumento significativo do tempo até a primeira crise epiléptica após o tratamento. Valor binário: 1 = sim; 0 = não. | `1` |
+| `reducao_severidade_racine` | Indica se ocorreu redução significativa da severidade das crises avaliada pela escala de Racine. Valor binário: 1 = sim; 0 = não. | `0` |
+| `protecao_contra_morte` | Indica se o composto apresentou proteção contra mortalidade induzida pelo modelo experimental. Valor binário: 1 = sim; 0 = não. | `1` |
+| `target_anticonvulsivante` | Variável alvo do modelo de Machine Learning. Assume valor 1 quando o composto apresenta pelo menos um efeito anticonvulsivante positivo e 0 quando não apresenta efeito terapêutico observado. | `1` |
+| `fonte_evidencia` | Indica a seção do artigo onde a evidência foi encontrada durante o processo de extração dos dados. | `Results` |
 
 ## Disponibilidade dos dados
 O conjunto de dados estruturado está consolidado e disponível em dois formatos `.csv` e `.xlsx`. Os arquivos encontram-se disponíveis no seguinte link: https://drive.google.com/drive/folders/1z-ccp0WHS1WI2nzWEUvTUkL50rD7MMe4?usp=drive_link
