@@ -47,7 +47,6 @@ Os dados foram coletados por meio da API Entrez (NCBI), utilizando consultas ao 
 | `reducao_severidade_racine` | Indica se ocorreu redução significativa da severidade das crises avaliada pela escala de Racine. Valor binário: 1 = sim; 0 = não. | `0` |
 | `protecao_contra_morte` | Indica se o composto apresentou proteção contra mortalidade induzida pelo modelo experimental. Valor binário: 1 = sim; 0 = não. | `1` |
 | `target_anticonvulsivante` | Variável alvo do modelo de Machine Learning. Assume valor 1 quando o composto apresenta pelo menos um efeito anticonvulsivante positivo e 0 quando não apresenta efeito terapêutico observado. | `1` |
-| `fonte_evidencia` | Indica a seção do artigo onde a evidência foi encontrada durante o processo de extração dos dados. | `Results` |
 
 ## Disponibilidade dos dados
 O conjunto de dados estruturado está consolidado e disponível em dois formatos `.csv` e `.xlsx`. Os arquivos encontram-se disponíveis no seguinte link: https://drive.google.com/drive/folders/1z-ccp0WHS1WI2nzWEUvTUkL50rD7MMe4?usp=drive_link
